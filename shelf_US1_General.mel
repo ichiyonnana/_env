@@ -1,0 +1,3176 @@
+global proc shelf_US1_General () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 63
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- File -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 79
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "CleanUp Shelves" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "from maya import cmds\nimport maya.mel as mel\n\nfrom maya import utils\n\n\ndef cleanup_shelves():\n    \"\"\"不要なシェルフの削除\"\"\"\n\n    shelf_path = mel.eval(\"$gShelfTopLevel = $gShelfTopLevel\")\n\n    for name in [\"MASH\", \"XGen\"]:\n        if cmds.shelfLayout(name, ex=True):\n            cmds.deleteUI(shelf_path + \"|\" + name, layout=True)\n\n    mel.eval('jumpToNamedShelf(\"US_General\");')\n\n\ncleanup_shelves()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 79
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Edit the references for the current scene" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Reference Editor" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "RE" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconFile.png" 
+        -image1 "menuIconFile.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "ReferenceEditor" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 72
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "import sisidebar.sisidebar_main\nimport sisidebar.sisidebar_sub\nsisidebar.sisidebar_main.Option()" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Command Port" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\ncmds.commandPort(name=\":7001\", sourceType=\"mel\")\ncmds.commandPort(name=\":7002\", sourceType=\"python\")\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 106
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Set project from scene" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nimport nnutil.misc as mn\n\nmn.set_project_from_scene()\n\ncmds.autoSave(en=True)\ncmds.autoSave(limitBackups=False)\ncmds.autoSave(interval=60*4)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "SetProjectOp" ( "SetProject" )
+        -mi "Cleanup Path" ( "from maya import cmds\nimport nnutil.misc as nm\n\nimport nnutil.core as nu\n\n# set project\nnm.set_project_from_scene()\n\n# shorten filepath\ncmds.select(cmds.ls(type=\"file\"))\nnm.shorten_filepath()\n\n# shorten shaderpath\nfor mat in cnt.get_all_cnt_shder():\n    current_technique = mat.technique.get()\n    mat.shader.set(\"shader\\continue_check_shader.fx\")\n    mat.technique.set(current_technique)\n" )
+        -mip 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 72
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Display file paths, resolve path errors, and repath files used in your scene" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "File Path Editor" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "FPE" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconWindow.png" 
+        -image1 "menuIconWindow.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "FilePathEditor" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 37
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "init SKT" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "# -*- coding: utf-8 -*-\n#===============================================================================\n# Skymill Tools\n#\n# author: Martin Yara                                          www.skymill.co.jp\n#===============================================================================\nimport sys\nsys.dont_write_bytecode = True\nimport SkyToolsLoader\nSkyToolsLoader.main()\n#-------------------------------------------------------------------------------#\n\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "update key (blank)" ( "\ndef update_key(blank=False, perpetual=False):\n    if not blank and not perpetual:\n        raise ValueError(\"You must specify either blank or perpetual as True\")\n    \n    blank_key = \"\"\n    perpetual_key = \"ipuvgqCeo4OhroSdo6GJnK-w\"\n    key_path = r\"Y:\\projects\\skytools\\src\\SkyTools1\\Skytools\\scripts\\SkyTools\\SkyTools.key\"\n\n    if blank:\n        data = blank_key\n\n    if perpetual:\n        data = perpetual_key    \n\n    with open(key_path, \"w\") as f:\n        f.write(data)\n\n\nupdate_key(blank=True)\n" )
+        -mip 0
+        -mi "update key (perpetual)" ( "\ndef update_key(blank=False, perpetual=False):\n    if not blank and not perpetual:\n        raise ValueError(\"You must specify either blank or perpetual as True\")\n    \n    blank_key = \"\"\n    perpetual_key = \"ipuvgqCeo4OhroSdo6GJnK-w\"\n    key_path = r\"Y:\\projects\\skytools\\src\\SkyTools1\\Skytools\\scripts\\SkyTools\\SkyTools.key\"\n\n    if blank:\n        data = blank_key\n\n    if perpetual:\n        data = perpetual_key    \n\n    with open(key_path, \"w\") as f:\n        f.write(data)\n\n\nupdate_key(perpetual=True)\n" )
+        -mip 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 61
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Adjust blend shape weights" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Shape Editor" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "blendShapeEditor.png" 
+        -image1 "blendShapeEditor.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "ShapeEditor" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 49
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Auto Save" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "enable" ( "import maya.cmds as cmds\n\n# auto save\ncmds.autoSave(en=True)\ncmds.autoSave(limitBackups=False)\ncmds.autoSave(interval=60*4)" )
+        -mip 0
+        -mi "disable" ( "import maya.cmds as cmds\n\n# auto save\ncmds.autoSave(en=False)\ncmds.autoSave(limitBackups=False)\ncmds.autoSave(interval=60*4)" )
+        -mip 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 78
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- Object -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 104
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "performTransferAttributes 1;" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Transfer Attributes Op" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "TrnsfAttr" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "performTransferAttributes 1;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 90
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "AriTransferPosition" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "AriTransferPosition" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 116
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Orient Mesh from Edges" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import nnmisc.core as nm\n\nnm.orient_object_from_edges()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 103
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- Component -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 67
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Lock Normals" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "polyNormalPerVertex -fn true;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 77
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Unlock the Vertex normals" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Unlock Normals" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyNormalUnlock.png" 
+        -image1 "polyNormalUnlock.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "polyNormalPerVertex -ufn true" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 51
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Set the normals of selected vertices or vertex-faces to their face normals and unshare them" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Set to Face" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyNormalSetToFace.png" 
+        -image1 "polyNormalSetToFace.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "polySetToFaceNormal " 
+        -sourceType "mel" 
+        -doubleClickCommand "SetToFaceNormalsOptions" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 40
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Reverse the normals of the selected faces." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Reverse" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyNormal.png" 
+        -image1 "polyNormal.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "ReversePolygonNormals" 
+        -sourceType "mel" 
+        -doubleClickCommand "ReversePolygonNormalsOptions" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 50
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Transform (Scale, Rotate, Translate...) the selected components (Vertices, Edges or Faces). UVs are moved in the UV Editor." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Transform" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyMoveVertex.png" 
+        -image1 "polyMoveVertex.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "performPolyMove \"\" 0" 
+        -sourceType "mel" 
+        -doubleClickCommand "MovePolygonComponentOptions" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 67
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- Skin -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 62
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Click to place joint, click on existing joint to add to skeleton, click/drag to position joint" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create Joints" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "kinJoint.png" 
+        -image1 "kinJoint.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "JointTool" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 80
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Ari Joint Straight" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Ari Joint Straight" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "AriJointStraight.png" 
+        -image1 "AriJointStraight.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.mel as mel\nmel.eval(\"AriJointStraight\")\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 108
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Ari Joint Bend Orient Option" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Ari Orient Joint Option" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "AJBOO" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "SkyTools.png" 
+        -image1 "SkyTools.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.mel as mel\nmel.eval(\"AriJointBendOrient\")\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 72
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create polygon faces" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create Polygon" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyCreateFacet.png" 
+        -image1 "polyCreateFacet.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "setToolTo polyCreateFacetContext ; polyCreateFacetCtx -e -pc `optionVar -q polyKeepFacetsPlanar` polyCreateFacetContext" 
+        -sourceType "mel" 
+        -doubleClickCommand "setToolTo polyCreateFacetContext ; polyCreateFacetCtx -e -pc `optionVar -q polyKeepFacetsPlanar` polyCreateFacetContext; toolPropertyWindow" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 105
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "deform joint (prepare)" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\nproxy_obj_name = \"jlproxyobj\"\n\nall_joints = [x for x in cmds.ls(type=\"joint\") if \":\" not in x]\npositions = [cmds.xform(x, q=True, translation=True, worldSpace=True) for x in all_joints]\n\nobj_name, shape = cmds.polyCreateFacet(ch=True, tx=1, s=1, p=[coord for pos in positions for coord in pos])\nobj = obj_name\n\ncmds.setAttr(f\"{obj}.overrideEnabled\", 1)\ncmds.setAttr(f\"{obj}.overrideShading\", 0)\ncmds.setAttr(f\"{obj}.overrideTexturing\", 0)\ncmds.setAttr(f\"{obj}.overridePlayback\", 0)\n\ncmds.rename(obj, proxy_obj_name)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 95
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "deform joint (apply)" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nimport maya.api.OpenMaya as om\n\ndef hierarchy_depth(obj_name):\n    return cmds.ls(obj_name, long=True)[0].count(\"|\")\n\nproxy_obj_name = \"jlproxyobj\"\n\nsel = om.MSelectionList()\nsel.add(cmds.listRelatives(proxy_obj_name, shapes=True)[0])\nfn_mesh = om.MFnMesh(sel.getDagPath(0))\npositions = fn_mesh.getPoints(om.MSpace.kWorld)\n\nall_joints = [x for x in cmds.ls(type=\"joint\") if \":\" not in x]\n\njoint_pos_table = {}\n\nfor i in range(len(all_joints)):\n    joint_pos_table[all_joints[i]] = positions[i]\n\nall_joints.sort(key=lambda x: hierarchy_depth(x))\n\nfor joint in all_joints:\n    p = joint_pos_table[joint]\n    cmds.xform(joint, translation=[p.x, p.y, p.z], worldSpace=True)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 103
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create Joint at Sel Vtx" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\nverts = cmds.ls(selection=True, flatten=True)\npositions = [cmds.pointPosition(v, world=True) for v in verts]\n\nfor pos in positions:\n    cmds.select(clear=True)\n    cmds.joint(position=pos)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 49
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Paint smooth skin cluster weights for the selection" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "brSmooth" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "brSmoothWeights.svg" 
+        -image1 "brSmoothWeights.svg" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "brSmoothWeightsToolCtx; toolPropertyWindow;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 96
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- Transform -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 70
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Create a locator object on the grid" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create Locator" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "locator.png" 
+        -image1 "locator.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\nselected = cmds.ls(selection=True)\n\nlocator = cmds.spaceLocator()[0]\n\nif selected:\n\tcmds.parent(locator, selected[0])\t\n\tcmds.xform(locator, translation=(0, 0, 0), rotation=(0, 0, 0), scale=(1, 1, 1), objectSpace=True)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 91
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Create Loc On Face" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nimport maya.OpenMaya as om\n\ndef create_locators_on_faces():\n    sel_faces = cmds.ls(selection=True, flatten=True)  # 選択したフェースを取得\n    if not sel_faces:\n        cmds.warning(\"フェースを選択してください。\")\n        return\n    \n    for face in sel_faces:\n        # フェースの接線空間（Tangent, Bitangent, Normal）と中心座標を取得\n        tangent, bitangent, normal, center = get_face_tangent_space_and_center(face)\n        \n        if tangent and bitangent and normal and center:\n            # ロケーターを作成し、フェースの中心に配置\n            loc = cmds.spaceLocator()[0]\n            cmds.xform(loc, translation=center, worldSpace=True)\n            \n            # ロケーターのワールドマトリクスを設定\n            set_locator_matrix(loc, tangent, bitangent, normal, center)\n\ndef get_face_tangent_space_and_center(face):\n    \"\"\"全頂点の平均から接線（Tangent）、従法線（Bitangent）、法線（Normal）、中心座標を取得\"\"\"\n    sel_list = om.MSelectionList()\n    sel_list.add(face)\n    \n    dag_path = om.MDagPath()\n    component = om.MObject()\n    sel_list.getDagPath(0, dag_path, component)\n    \n    if not component.hasFn(om.MFn.kMeshPolygonComponent):\n        return None, None, None, None\n    \n    mesh_fn = om.MFnMesh(dag_path)\n    face_iter = om.MItMeshPolygon(dag_path, component)\n    \n    while not face_iter.isDone():\n        # フェースの中心座標\n        center = face_iter.center(om.MSpace.kWorld)\n        center_pos = [center.x, center.y, center.z]\n        \n        # 法線を取得\n        normal = om.MVector()\n        face_iter.getNormal(normal, om.MSpace.kWorld)\n        normal_vec = [normal.x, normal.y, normal.z]\n        \n        # フェースの全頂点の UV ベースの接線・従法線を取得し、平均を計算\n        vertex_list = om.MIntArray()\n        face_iter.getVertices(vertex_list)\n        \n        if vertex_list.length() == 0:\n            return None, None, None, None\n        \n        tangent_sum = om.MVector(0, 0, 0)\n        bitangent_sum = om.MVector(0, 0, 0)\n        \n        for vtx_id in vertex_list:\n            tangent = om.MVector()\n            bitangent = om.MVector()\n            mesh_fn.getFaceVertexTangent(face_iter.index(), vtx_id, tangent, om.MSpace.kWorld)\n            mesh_fn.getFaceVertexBinormal(face_iter.index(), vtx_id, bitangent, om.MSpace.kWorld)\n            \n            tangent_sum += tangent\n            bitangent_sum += bitangent\n        \n        # 平均ベクトルを計算（正規化も実施）\n        tangent_avg = tangent_sum.normal()\n        bitangent_avg = bitangent_sum.normal()\n        \n        tangent_vec = [tangent_avg.x, tangent_avg.y, tangent_avg.z]\n        bitangent_vec = [bitangent_avg.x, bitangent_avg.y, bitangent_avg.z]\n        \n        return tangent_vec, bitangent_vec, normal_vec, center_pos\n    \n    return None, None, None, None\n\ndef set_locator_matrix(locator, tangent, bitangent, normal, position):\n    \"\"\"ロケーターのワールドマトリクスを設定\"\"\"\n    matrix = [\n        tangent[0], tangent[1], tangent[2], 0,  # X軸（接線）\n        bitangent[0], bitangent[1], bitangent[2], 0,  # Y軸（従法線）\n        normal[0], normal[1], normal[2], 0,  # Z軸（法線）\n        position[0], position[1], position[2], 1  # 位置\n    ]\n    \n    cmds.xform(locator, matrix=matrix, worldSpace=True)\n\n# スクリプト実行\ncreate_locators_on_faces()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 101
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Extract TRS as locator" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import nnmisc.core as nnmisc\n\nnnmisc.extract_transform_as_locator()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 99
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Parent keep attribute" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "parent -r;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 53
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "TRS Mirror" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "X" ( "import maya.cmds as cmds\nimport maya.mel as mel\n\ncmds.duplicate(rr=True)\ncmds.scale(-1, 1, 1, relative=True)\ncmds.makeIdentity(apply=True, t=0, r=0, s=1, n=0, pn=1)\n" )
+        -mip 0
+        -mi "Y" ( "import maya.cmds as cmds\nimport maya.mel as mel\n\ncmds.duplicate(rr=True)\ncmds.scale(1, -1, 1, relative=True)\ncmds.makeIdentity(apply=True, t=0, r=0, s=1, n=0, pn=1)\n" )
+        -mip 1
+        -mi "Z" ( "import maya.cmds as cmds\nimport maya.mel as mel\n\ncmds.duplicate(rr=True)\ncmds.scale(1, 1, -1, relative=True)\ncmds.makeIdentity(apply=True, t=0, r=0, s=1, n=0, pn=1)\n" )
+        -mip 2
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 58
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Radial Copy" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import nnmisc.core as nm\n\nnm.radial_copy_prompt()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 102
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Replace/Add Instance" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "add as instance" ( "import nnmisc.core as nnmisc\n\nnnmisc.add_instance(instance=True)\n" )
+        -mip 0
+        -mi "add as copy" ( "import nnmisc.core as nnmisc\n\nnnmisc.add_instance(instance=False)\n" )
+        -mip 1
+        -mi "replace as instance" ( "import nnmisc.core as nnmisc\n\nnnmisc.add_instance(instance=True, replace=True)\n" )
+        -mip 2
+        -mi "replace as copy" ( "import nnmisc.core as nnmisc\n\nnnmisc.add_instance(instance=False, replace=True)\n" )
+        -mip 3
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 96
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Freeze local position" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nimport maya.api.OpenMaya as om\n\nfor trs_node in cmds.ls(selection=True):\n    shape_node = cmds.listRelatives(trs_node, shapes=True)[0]\n\n    cmds.setAttr(f\"{trs_node}.rotatePivot\", 0, 0, 0)\n    cmds.setAttr(f\"{trs_node}.scalePivot\", 0, 0, 0)\n\n    trs_pos = om.MVector(*cmds.getAttr(f\"{trs_node}.translate\")[0])\n    local_pos = om.MVector(*cmds.getAttr(f\"{shape_node}.localPosition\")[0])\n    cmds.setAttr(f\"{shape_node}.localPosition\", 0, 0, 0)\n    result = trs_pos + local_pos\n    cmds.setAttr(f\"{trs_node}.translate\", result.x, result.y, result.z)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 115
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "parent (maintain values)" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "parent -r" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 80
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- display -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 73
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "modelEditor -e -sel true modelPanel4;" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Sel Highliting 1" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "$activePanel = `getPanel -withFocus`;\nmodelEditor -e -sel true $activePanel;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "All Panels" ( "import maya.cmds as cmds\n\nall_panels = cmds.getPanel(all=True)\n\nfor panel in all_panels:                \n    panel_type = cmds.getPanel(typeOf=panel)\n\n    if panel_type == \"modelPanel\":\n        cmds.modelEditor(panel, e=True, sel=True)" )
+        -mip 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 73
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "modelEditor -e -sel false modelPanel4;" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Sel Highliting 0" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "$activePanel = `getPanel -withFocus`;\nmodelEditor -e -sel false $activePanel;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "All Panels" ( "import maya.cmds as cmds\n\nall_panels = cmds.getPanel(all=True)\n\nfor panel in all_panels:                \n    panel_type = cmds.getPanel(typeOf=panel)\n\n    if panel_type == \"modelPanel\":\n        cmds.modelEditor(panel, e=True, sel=False)" )
+        -mip 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 116
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Custom polygon display options" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Custom Polygon Display" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "Cpdo" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconDisplay.png" 
+        -image1 "menuIconDisplay.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "CustomPolygonDisplayOptions" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 85
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Hard Edge (Color)" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "displayRGBColor -c hardedge 0.1 0.1 0.9;\ndisplayRGBColor -c hardedgeHilite 0.7 0.5 1;\nTogglePolyDisplayHardEdgesColor;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "Standard Edge" ( "TogglePolyDisplayEdges;" )
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 105
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "ToggleVertexNormalDisplay;" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Show Normal [toggle]" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "ToggleVertexNormalDisplay;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "show" ( "polyOptions -displayNormal true -point;" )
+        -mi "hide" ( "polyOptions -displayNormal false -point;" )
+        -mi "normal size" ( "setPolygonDisplaySettings(\"normalSize\");" )
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 89
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle local rotation axis visibility" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Local Axes [toggle]" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "LRA" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconDisplay.png" 
+        -image1 "menuIconDisplay.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\nselections = cmds.ls(selection=True)\n\nif not selections:\n\traise\n\nattr_name = \"displayLocalAxis\"\nnew_value = not bool(cmds.getAttr(f\"{selections[0]}.{attr_name}\"))\nfor obj in selections:\n\tif cmds.attributeQuery(attr_name, node=obj, exists=True):\n\t\tcmds.setAttr(f\"{obj}.{attr_name}\", new_value)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 112
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle the crease vertex visibility" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Crease Vertices [toggle]" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "CV" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconDisplay.png" 
+        -image1 "menuIconDisplay.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "ToggleCreaseVertices" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 74
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Apply color options" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Apply Color Op" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyApplyColor.png" 
+        -image1 "polyApplyColor.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "PolygonApplyColorOptions" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 68
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "ComponentID" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "Vtx" ( "ToggleVertIDs" )
+        -mi "Edge" ( "ToggleEdgeIDs" )
+        -mi "Face" ( "ToggleFaceIDs" )
+        -mi "UV" ( "ToggleCompIDs" )
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 76
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- Select -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 102
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Select Skined Meshes" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import nnmisc.core as nm\nnm.select_all_skined_meshes_from_root_joint()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 102
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Enable Camera Based" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import SkyTools.select.selectionDepth\nSkyTools.select.selectionDepth.main()\n\ncmds.selectPref(useDepth=True)\ncmds.selectPref(autoUseDepth=True)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 87
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Filter Edges by Dir" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "Horizontal" ( "import maya.cmds as cmds\nimport maya.OpenMaya as om\n\ndef get_world_position(node):\n    \"\"\"Get the world position of a node.\"\"\"\n    return cmds.xform(node, query=True, worldSpace=True, translation=True)\n\ndef get_edge_vertices(edge):\n    \"\"\"Get the vertices of an edge.\"\"\"\n    return cmds.ls(cmds.polyListComponentConversion(edge, toVertex=True), flatten=True)\n\ndef dot_product(vector1, vector2):\n    \"\"\"Calculate the dot product of two vectors.\"\"\"\n    return sum(v1*v2 for v1, v2 in zip(vector1, vector2))\n\n# Get the selected edges\nselected_edges = cmds.ls(selection=True, flatten=True)\n\n# Initialize an empty list to store the edges to select\nedges_to_select = []\n\n# Iterate over the selected edges\nfor edge in selected_edges:\n    # Get the vertices of the edge\n    vertices = get_edge_vertices(edge)\n\n    # Get the world positions of the vertices\n    world_positions = [get_world_position(vertex) for vertex in vertices]\n\n    # Calculate the vector from the start to the end of the edge\n    edge_vector = [end - start for start, end in zip(*world_positions)]\n\n    # Calculate the dot product of the edge vector and the world Y vector\n    dot_product_value = dot_product(edge_vector, [0, 1, 0])\n\n    # If the absolute value of the dot product is less than or equal to 0.5, add the edge to the list of edges to select\n    if abs(dot_product_value) < 0.5:\n        edges_to_select.append(edge)\n\n# Select the edges\ncmds.select(edges_to_select)" )
+        -mip 0
+        -mi "Vertical" ( "import maya.cmds as cmds\nimport maya.OpenMaya as om\n\ndef get_world_position(node):\n    \"\"\"Get the world position of a node.\"\"\"\n    return cmds.xform(node, query=True, worldSpace=True, translation=True)\n\ndef get_edge_vertices(edge):\n    \"\"\"Get the vertices of an edge.\"\"\"\n    return cmds.ls(cmds.polyListComponentConversion(edge, toVertex=True), flatten=True)\n\ndef dot_product(vector1, vector2):\n    \"\"\"Calculate the dot product of two vectors.\"\"\"\n    return sum(v1*v2 for v1, v2 in zip(vector1, vector2))\n\n# Get the selected edges\nselected_edges = cmds.ls(selection=True, flatten=True)\n\n# Initialize an empty list to store the edges to select\nedges_to_select = []\n\n# Iterate over the selected edges\nfor edge in selected_edges:\n    # Get the vertices of the edge\n    vertices = get_edge_vertices(edge)\n\n    # Get the world positions of the vertices\n    world_positions = [get_world_position(vertex) for vertex in vertices]\n\n    # Calculate the vector from the start to the end of the edge\n    edge_vector = [end - start for start, end in zip(*world_positions)]\n\n    # Calculate the dot product of the edge vector and the world Y vector\n    dot_product_value = dot_product(edge_vector, [0, 1, 0])\n\n    # If the absolute value of the dot product is less than or equal to 0.5, add the edge to the list of edges to select\n    if abs(dot_product_value) > 0.5:\n        edges_to_select.append(edge)\n\n# Select the edges\ncmds.select(edges_to_select)" )
+        -mip 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 60
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "sel y0 edges" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import re\nimport math\n\nimport maya.cmds as cmds\nimport maya.mel as mel\nimport maya.api.OpenMaya as om\n\nedges = cmds.ls(selection=True, flatten=True)\nborder_edges = []\n\nfor edge in edges:\n    vts = cmds.polyListComponentConversion(edge, tv=True)\n\n    x1, y1, z1, x2, y2, z2 = cmds.xform(vts, q=True, translation=True, worldSpace=True)\n\n    if math.isclose(y1, 0) and math.isclose(y2, 0):\n        border_edges.append(edge)\n\ncmds.select(border_edges)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 8
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "..." 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 74
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- check -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 61
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Cleanup options" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "PolyCreanup" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyCleanup.png" 
+        -image1 "polyCleanup.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "CleanupPolygonOptions;\n" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 88
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Optimize scene size options" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "CleanUp Scene Op" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "Osso" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconFile.png" 
+        -image1 "menuIconFile.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "OptimizeSceneOptions" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 107
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Ari Symmetry Checker" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Ari Symmetry Checker" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "AriSymmetryChecker.png" 
+        -image1 "AriSymmetryChecker.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "try:\n\timport SkyTools.modeling.AriSymmetryChecker\n\treload(SkyTools.modeling.AriSymmetryChecker)\n\tSkyTools.modeling.AriSymmetryChecker.main()\nexcept:\n\timport maya.mel as mel\n\tmel.eval(\"AriSymmetryChecker\")\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 95
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Ari.Polygon Counter" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Ari Polygon Counter" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "AriPolygonCounter.png" 
+        -image1 "AriPolygonCounter.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "try:\n\timport SkyTools.modeling.AriPolygonCounter\n\treload(SkyTools.modeling.AriPolygonCounter)\n\tSkyTools.modeling.AriPolygonCounter.main()\nexcept:\n\timport maya.mel as mel\n\tmel.eval(\"AriPolygonCounter\")" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 71
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "AriLayerSwitch" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "AriLayerSwitch" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 79
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Shorten Filepath" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import nnutil.misc as nm\n\nnm.shorten_filepath()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 79
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- subdiv -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.306096 0.4439 0.578302 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 55
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the Crease Sets Editor" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Crease Sets" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "polyCrease.png" 
+        -image1 "polyCrease.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.mel as mel\ntry:\n    mel.eval(\"OpenCreaseEditor\")\nexcept:\n    from maya.app.general import creaseSetEditor\n    creaseSetEditor.showCreaseSetEditor()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 58
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Deform objects by wrapping them around another mesh." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "ShrinkWrap" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "shrinkwrap.png" 
+        -image1 "shrinkwrap.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "CreateShrinkWrap" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "for set" ( "import nnutil\n\nnnutil.shrinkwrap_for_set()" )
+        -mip 0
+        -mi "options" ( "CreateShrinkWrapOptions;" )
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 99
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Toggle the crease edge visibility" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "show Crease [toggle]" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "CE" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconDisplay.png" 
+        -image1 "menuIconDisplay.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "ToggleCreaseEdges" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 52
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "--- Skel ---" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 99
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Snap Joint and Mesh" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "to Joint" ( "import maya.cmds as cmds\n\ndef get_joint_depth(joint):\n    return joint.count('|')\n\ndef snap_joints_to_nearest_mesh_vertex():\n    sels = cmds.ls(selection=True, long=True)\n    joints = [s for s in sels if cmds.nodeType(s) == \"joint\"]\n    meshes = []\n    for s in sels:\n        if cmds.nodeType(s) == \"transform\":\n            shapes = cmds.listRelatives(s, shapes=True, type=\"mesh\", fullPath=True)\n            if shapes:\n                meshes.append(s)\n    if not joints or not meshes:\n        return\n    mesh = meshes[0]\n    vtxs = cmds.ls(mesh + \".vtx[*]\", flatten=True)\n    vtx_pos = [cmds.pointPosition(v, world=True) for v in vtxs]\n    joints = sorted(joints, key=get_joint_depth)\n    for j in joints:\n        jpos = cmds.xform(j, q=True, ws=True, t=True)\n        min_idx = min(range(len(vtx_pos)), key=lambda i: ((vtx_pos[i][0]-jpos[0])**2 + (vtx_pos[i][1]-jpos[1])**2 + (vtx_pos[i][2]-jpos[2])**2))\n        cmds.xform(j, ws=True, t=vtx_pos[min_idx])\n\ndef snap_mesh_vertices_to_nearest_joint():\n    sels = cmds.ls(selection=True, long=True)\n    joints = [s for s in sels if cmds.nodeType(s) == \"joint\"]\n    meshes = []\n    for s in sels:\n        if cmds.nodeType(s) == \"transform\":\n            shapes = cmds.listRelatives(s, shapes=True, type=\"mesh\", fullPath=True)\n            if shapes:\n                meshes.append(s)\n    if not joints or not meshes:\n        return\n    mesh = meshes[0]\n    vtxs = cmds.ls(mesh + \".vtx[*]\", flatten=True)\n    joint_pos = [cmds.xform(j, q=True, ws=True, t=True) for j in joints]\n    for v in vtxs:\n        vpos = cmds.pointPosition(v, world=True)\n        min_idx = min(range(len(joint_pos)), key=lambda i: ((joint_pos[i][0]-vpos[0])**2 + (joint_pos[i][1]-vpos[1])**2 + (joint_pos[i][2]-vpos[2])**2))\n        cmds.xform(v, ws=True, t=joint_pos[min_idx])\n\nsnap_mesh_vertices_to_nearest_joint()" )
+        -mip 0
+        -mi "to Mesh" ( "import maya.cmds as cmds\n\ndef get_joint_depth(joint):\n    return joint.count('|')\n\ndef snap_joints_to_nearest_mesh_vertex():\n    sels = cmds.ls(selection=True, long=True)\n    joints = [s for s in sels if cmds.nodeType(s) == \"joint\"]\n    meshes = []\n    for s in sels:\n        if cmds.nodeType(s) == \"transform\":\n            shapes = cmds.listRelatives(s, shapes=True, type=\"mesh\", fullPath=True)\n            if shapes:\n                meshes.append(s)\n    if not joints or not meshes:\n        return\n    mesh = meshes[0]\n    vtxs = cmds.ls(mesh + \".vtx[*]\", flatten=True)\n    vtx_pos = [cmds.pointPosition(v, world=True) for v in vtxs]\n    joints = sorted(joints, key=get_joint_depth)\n    for j in joints:\n        jpos = cmds.xform(j, q=True, ws=True, t=True)\n        min_idx = min(range(len(vtx_pos)), key=lambda i: ((vtx_pos[i][0]-jpos[0])**2 + (vtx_pos[i][1]-jpos[1])**2 + (vtx_pos[i][2]-jpos[2])**2))\n        cmds.xform(j, ws=True, t=vtx_pos[min_idx])\n\ndef snap_mesh_vertices_to_nearest_joint():\n    sels = cmds.ls(selection=True, long=True)\n    joints = [s for s in sels if cmds.nodeType(s) == \"joint\"]\n    meshes = []\n    for s in sels:\n        if cmds.nodeType(s) == \"transform\":\n            shapes = cmds.listRelatives(s, shapes=True, type=\"mesh\", fullPath=True)\n            if shapes:\n                meshes.append(s)\n    if not joints or not meshes:\n        return\n    mesh = meshes[0]\n    vtxs = cmds.ls(mesh + \".vtx[*]\", flatten=True)\n    joint_pos = [cmds.xform(j, q=True, ws=True, t=True) for j in joints]\n    for v in vtxs:\n        vpos = cmds.pointPosition(v, world=True)\n        min_idx = min(range(len(joint_pos)), key=lambda i: ((joint_pos[i][0]-vpos[0])**2 + (joint_pos[i][1]-vpos[1])**2 + (joint_pos[i][2]-vpos[2])**2))\n        cmds.xform(v, ws=True, t=joint_pos[min_idx])\n\nsnap_joints_to_nearest_mesh_vertex()" )
+        -mip 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 75
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Round Joint Tra" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "from maya import cmds\n\ndigit = 2\n\nfor joint in cmds.ls(type=\"joint\"):\n    x = round(cmds.getAttr(f\"{joint}.tx\"), digit)\n    y = round(cmds.getAttr(f\"{joint}.ty\"), digit)\n    z = round(cmds.getAttr(f\"{joint}.tz\"), digit)\n    \n    cmds.setAttr(f\"{joint}.translate\", x,y,z)\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 88
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Symmetrize Joints" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import re\n\nimport maya.cmds as cmds\nimport maya.api.OpenMaya as om\n\ndef get_opposite_joint(joint_name):\n    basename = joint_name.split(\"|\")[-1]\n    \n    if re.search(r\"^L_\", basename):\n        return re.sub(\"^L_\", \"R_\", basename)\n    \n    elif re.search(r\"^R_\", basename):\n        return re.sub(\"^R_\", \"L_\", basename)\n    \n    return None\n\ndef mirror_joint(joint, pos=True, ori=True):\n    opposite_joint = get_opposite_joint(joint)\n    if not opposite_joint or not cmds.objExists(opposite_joint):\n        print(f\"{joint}に対応するジョイントが見つかりませんでした。\")\n        return\n    \n    # ジョイントのワールドマトリクス\n    matrix = cmds.xform(joint, query=True, matrix=True, worldSpace=True)\n\n    # 対向ジョイントのワールドマトリクス\n    opposite_matrix = cmds.xform(opposite_joint, query=True, matrix=True, worldSpace=True)\n\n    # 対向ジョイントの基底ベクトルと位置を取得\n    obx = om.MVector(opposite_matrix[0:3])\n    oby = om.MVector(opposite_matrix[4:7])\n    obz = om.MVector(opposite_matrix[8:11])\n    op = om.MVector(opposite_matrix[12:15])\n\n    # 新しい基底ベクトルと位置を計算\n    new_bx = om.MVector(-obx.x, obx.y, obx.z)\n    new_by = om.MVector(-oby.x, oby.y, oby.z)\n    new_bz = new_bx ^ new_by\n    new_p = om.MVector(-op.x, op.y, op.z)\n\n    # 新しいマトリックスを作成\n    new_matrix = matrix\n    \n    if pos:\n        new_matrix[12:15] = [new_p.x, new_p.y, new_p.z]\n\n    if ori:\n        new_matrix[0:3] = [new_bx.x, new_bx.y, new_bx.z]\n        new_matrix[4:7] = [new_by.x, new_by.y, new_by.z]\n        new_matrix[8:11] = [new_bz.x, new_bz.y, new_bz.z]\n\n    # 子があればワールドマトリックスを取得\n    children = cmds.listRelatives(joint, children=True, fullPath=True)\n    child_matrix = None\n    if children:\n        child_matrix = cmds.xform(children[0], query=True, matrix=True, worldSpace=True)\n\n    # 新しいマトリクスを適用\n    cmds.xform(joint, matrix=new_matrix, worldSpace=True)\n    \n    # 回転をフリーズ\n    cmds.makeIdentity(joint, apply=True, rotate=True)\n\n    # 子を復帰\n    if child_matrix:\n        cmds.xform(children[0], matrix=child_matrix, worldSpace=True)\n        cmds.makeIdentity(children[0], apply=True, rotate=True)\n\ndef main():\n    # 選択されたジョイントを取得\n    selected_joints = cmds.ls(selection=True, type='joint')\n    if not selected_joints:\n        cmds.error(\"ジョイントを選択してください。\")\n        return\n\n    # 階層が浅い順にソート\n    selected_joints.sort(key=lambda x: x.count('|'))\n\n    # ジョイントのミラー\n    for joint in selected_joints:\n        mirror_joint(joint)\n\nif __name__ == \"__main__\":\n    main()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 72
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Joints Restorer" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\njoint_data_store = {}\n\ndef store_joint_data(*args):\n    global joint_data_store\n    joint_data_store = {}  # 初期化\n\n    joints = cmds.ls(type=\"joint\")\n    for jnt in joints:\n        translate = cmds.getAttr(f\"{jnt}.translate\")[0]\n        orient = cmds.getAttr(f\"{jnt}.jointOrient\")[0]\n        joint_data_store[jnt] = {\n            \"translate\": translate,\n            \"orient\": orient\n        }\n    cmds.inViewMessage(amg='[Store] Store Joints Tra & Ori', pos='topCenter', fade=True)\n\ndef restore_joint_data(*args):\n    global joint_data_store\n\n    for jnt, data in joint_data_store.items():\n        if cmds.objExists(jnt):\n            cmds.setAttr(f\"{jnt}.translate\", *data[\"translate\"])\n            cmds.setAttr(f\"{jnt}.jointOrient\", *data[\"orient\"])\n    cmds.inViewMessage(amg='[Restore] Restore Joints Tra & Ori', pos='topCenter', fade=True)\n\n# UI\ndef create_ui():\n    if cmds.window(\"jointStoreWin\", exists=True):\n        cmds.deleteUI(\"jointStoreWin\")\n\n    cmds.window(\"jointStoreWin\", title=\"Joint Store/Restore\", widthHeight=(200, 80))\n    cmds.columnLayout(adjustableColumn=True, rowSpacing=10, columnAlign=\"center\")\n    cmds.button(label=\"Store\", command=store_joint_data, height=30)\n    cmds.button(label=\"Restore\", command=restore_joint_data, height=30)\n    cmds.showWindow(\"jointStoreWin\")\n\ncreate_ui()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 69
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "----- misc -----" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 48
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "MMDcmd" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import mmdpaimaya.natang\nnatang_sang = mmdpaimaya.natang.roem()" 
+        -sourceType "python" 
+        -doubleClickCommand "\n" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "import" ( "print(\"User defined menuItem\");" )
+        -mi "export" ( "print(\"User defined menuItem\");" )
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 47
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "misc func" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "Delete bindpose" ( "pass" )
+        -mip 0
+        -mi "Delete all customscripts" ( "import nnmisc.delete_all_customscripts as dacc\n\ndacc.main()" )
+        -mip 1
+        -mi "soft selection curve (" ( "ToolSettingsWindow;\nsetSoftSelectFalloffMode( \"Surface\");\nsetSoftSelectFalloffInterpolation( \"ToolSettings|MainToolSettingsLayout|tabLayout1|selectTool\", \"Smooth\");\nsoftSelect -e -softSelectCurve \"0,1,0,1,0,1,0,1,1,0.393939,0.861446,1,0.575758,0.746988,1,0.863636,0.463855,1,0.954545,0.301205,2,0.727273,0.626506,1,0.19697,0.945783,1\";" )
+        -mi "Disable all maintain max inf" ( "import nnutil.misc as nm\n\nnm.disable_all_maintain_max_inf()\n" )
+        -mip 3
+        -mi "Freeze smooth preview" ( "CreatePolyFromPreview" )
+        -mi "Close all holes" ( "import nnutil.core as nu\n\nnu.close_hole_all(None)" )
+        -mip 5
+        -mi "Delete non current uv" ( "import nnutil.core as nu\n\nnu.delete_uvSet_noncurrent()\n" )
+        -mip 6
+        -mi "Paintmode with sel joint" ( "import nnutil.misc as nm\n\nnm.weight_paint_mode_with_selected_joint()\n" )
+        -mip 7
+        -mi "Shorten filepath" ( "import nnutil.misc as nm\n\nnm.shorten_filepath()\n" )
+        -mip 8
+        -mi "Rename incremental saves" ( "import nnutil.misc as nm\n\nnm.rename_incremental_saves()" )
+        -mip 9
+        -mi "Create imageplanes from all images" ( "import nnmisc.create_imageplanes\n\nnnmisc.create_imageplanes.main()" )
+        -mip 10
+        -mi "Shorten imageplane path" ( "import re\nimport maya.cmds as cmds\n\nips = cmds.ls(type=\"imagePlane\")\n\nfor ip in ips:\n    current_src = cmds.getAttr(f\"{ip}.imageName\")\n    new_src = re.sub(r\"^.*(?=images)\", \"\", current_src)\n    cmds.setAttr(f\"{ip}.imageName\", new_src, type=\"string\")" )
+        -mip 11
+        -mi "Flush Undo" ( "flushUndo;" )
+        -mi "Unlock lambert" ( "import maya.cmds as cmds\ncmds.lockNode('initialShadingGroup', l=0, lockUnpublished=0)" )
+        -mip 13
+        -mi "Filter Intermediate Mesh" ( "import maya.cmds as cmds\n\ndef hide_intermediate_meshes():\n    # メッシュノードのみを選択\n    selected_nodes = cmds.ls(selection=True, dag=True, type=\"mesh\")\n    if not selected_nodes:\n        print(\"選択中のメッシュがありません。\")\n        return\n\n    # intermediateObject が 1 のメッシュのみを選択\n    intermediate_meshes = [\n        mesh for mesh in selected_nodes if cmds.getAttr(f\"{mesh}.intermediateObject\")\n    ]\n    if not intermediate_meshes:\n        print(\"中間オブジェクトのメッシュがありません。\")\n        return\n\n    # 選択を更新\n    cmds.select(intermediate_meshes)\n    print(f\"選択された中間オブジェクトメッシュ: {intermediate_meshes}\")\n\n# 実行\nhide_intermediate_meshes()\n" )
+        -mip 14
+        -mi "Parent with Sel Order" ( "import maya.cmds as cmds\n\nobjs = cmds.ls(selection=True, long=True)\nfor i in range(len(objs)-1, 0, -1):\n    cmds.parent(objs[i], objs[i-1])" )
+        -mip 15
+        -mi "Print Vts Distance" ( "import maya.cmds as cmds\nimport maya.api.OpenMaya as om\n\ndef print_distance_between_selected_vertices():\n    selected = cmds.ls(selection=True, flatten=True)\n    pos1 = om.MVector(cmds.pointPosition(selected[0], world=True))\n    pos2 = om.MVector(cmds.pointPosition(selected[1], world=True))\n    print((pos2 - pos1).length())\n\nprint_distance_between_selected_vertices()" )
+        -mip 16
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 64
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "SoftSelection" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+        -mi "Linear" ( "softSelect -e -softSelectCurve \"0,1,0,1,0,1,0,1,1\";\n" )
+        -mi "Soft" ( "softSelect -e -softSelectCurve \"1,0,2,0,1,2\";" )
+        -mi "Surface" ( "setSoftSelectFalloffMode( \"Surface\");" )
+        -mi "Volume" ( "setSoftSelectFalloffMode( \"Volume\");" )
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 89
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Reload All Textures" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import nnutil.misc as nm\n\nnm.reload_all_texture()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 55
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "--- Paint ---" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 83
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "reset triple switch" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\ntss_node = \"tripleShadingSwitch1\"\n\nselections = cmds.ls(selection=True, flatten=True, type=\"mesh\")\n\nfor i, mesh_node in enumerate(selections):\n    print(mesh_node)\n    fullpath = cmds.ls(mesh_node, long=True)[0]\n    print(fullpath)\n    \n    if \"body\" in fullpath:\n        file_node = \"file_pt_body_mask\"\n    elif \"hair\" in fullpath:\n        file_node = \"file_pt_hair_mask\"\n    elif \"face\" in fullpath:\n        file_node = \"file_pt_face_mask\"\n    else:\n        print(\"skip\")\n        continue\n        \n    try:\n        cmds.connectAttr(mesh_node + \".instObjGroups[0]\", tss_node + \".input[%s].inShape\" % i, force=True)\n        cmds.connectAttr(file_node + \".outColor\", tss_node + \".input[%s].inTriple\" % i, force=True)\n        \n    except:\n        pass\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 71
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "3DPaint Palette" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nimport maya.mel as mel\n\n\ndef set_paint_color(color):\n    if color == 'Rd':\n        cmds.art3dPaintCtx(\"art3dPaintContext\", e=True, rgbcolor=(1,0,0))\n    elif color == 'Gr':\n        cmds.art3dPaintCtx(\"art3dPaintContext\", e=True, rgbcolor=(0,1,0))\n    elif color == 'Bl':\n        cmds.art3dPaintCtx(\"art3dPaintContext\", e=True, rgbcolor=(0,0,1))\n    elif color == 'Wh':\n        cmds.art3dPaintCtx(\"art3dPaintContext\", e=True, rgbcolor=(1,1,1))\n    elif color == 'Bk':\n        cmds.art3dPaintCtx(\"art3dPaintContext\", e=True, rgbcolor=(0,0,0))\n\n\ndef set_tool_3dpaint():\n\tmel.eval(\"Art3dPaintToolOptions\")\n\n\ndef tilt_camera(*args):\n    active_panerl = cmds.getPanel(withFocus=True)\n    active_camera = cmds.modelPanel(active_panerl, query=True, camera=True)\n    tilt_value = cmds.floatSlider(\"tilt_slider\", query=True, value=True)\n    cmds.setAttr(active_camera + \".rotateZ\", tilt_value)\n\n\ndef reset_tilt(*args):\n    active_panel = cmds.getPanel(withFocus=True)\n    active_camera = cmds.modelPanel(active_panel, query=True, camera=True)\n    cmds.setAttr(active_camera + \".rotateZ\", 0)\n    cmds.floatSlider(\"tilt_slider\", edit=True, value=0)\n\n\ndef create_window():\n    window_name = 'color_selector'\n    if cmds.window(window_name, exists=True):\n        cmds.deleteUI(window_name, window=True)\n\n    window = cmds.window(window_name, title=\"Color Selector\", resizeToFitChildren=True, sizeable=False, maximizeButton=False, minimizeButton=False)\n    cmds.columnLayout(adjustableColumn=True)\n\n    cmds.rowLayout(numberOfColumns=10)\n    cmds.button(label='3DPaint', width=60, height=60, command=lambda x: set_tool_3dpaint())\n    cmds.button(label='Rd', width=60, height=60, command=lambda x: set_paint_color('Rd'))\n    cmds.button(label='Gr', width=60, height=60, command=lambda x: set_paint_color('Gr'))\n    cmds.button(label='Bl', width=60, height=60, command=lambda x: set_paint_color('Bl'))\n    cmds.button(label='Wh', width=60, height=60, command=lambda x: set_paint_color('Wh'))\n    cmds.button(label='Bk', width=60, height=60, command=lambda x: set_paint_color('Bk'))\n    cmds.setParent('..')\n    \n    cmds.rowLayout(numberOfColumns=10)\n    cmds.floatSlider(\"tilt_slider\", min=-360, max=360, value=0, width=300, height=30, dragCommand=tilt_camera)\n    cmds.button(label=\"Reset\", command=reset_tilt)\n    cmds.setParent('..')\n\n    cmds.showWindow(window)\n\ncreate_window()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 59
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "--- Other ---" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 63
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "DepthPeeling" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "setAttr \"hardwareRenderingGlobals.transparencyAlgorithm\" 3;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 93
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "CurrentProjectTools" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import cnt_tools.line.core as cnt_line\ncnt_line.main()\n\nimport cnt_tools.temptex.core\ncnt_tools.temptex.core.main()\n\nimport cnt_tools.error_checker.core as cnt_ec\ncnt_ec.main()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 63
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "DepthPeeling" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "setAttr \"hardwareRenderingGlobals.transparencyAlgorithm\" 3;" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 100
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Customize the layout of the marking menus" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Marking Menu Editor" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "MME" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "menuIconWindow.png" 
+        -image1 "menuIconWindow.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "MarkingMenuPreferencesWindow" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 100
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Adjust the absolute scale and pivot of selected objects based on the bounding box." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Bounding Box Scale..." 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -imageOverlayLabel "BBS" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "bonusTools.png" 
+        -image1 "bonusTools.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "bt_boundingBoxScaleWindow" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 73
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "UV Grid Layout" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import nnuvtoolkit.grid_layout as gl\nfrom importlib import reload\nreload(gl)\ngl.main()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 106
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Mirror Weight in Local" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nimport maya.mel as mel\n\n# 選択されたメッシュを取得\nselected_objects = cmds.ls(selection=True, long=True)\nif not selected_objects:\n    raise Exception(\"オブジェクトが選択されていません。\")\n\n# 選択された最初のオブジェクトを使用\nselected_mesh = selected_objects[0]\n\n# スキンクラスタを取得\nskin_clusters = mel.eval('findRelatedSkinCluster \"{}\"'.format(selected_mesh))\nif not skin_clusters:\n    raise Exception(\"スキンクラスタが見つかりませんでした。\")\n\n# 頂点のウェイトを取得してコピー\nvertex_count = cmds.polyEvaluate(selected_mesh, vertex=True)\nfor i in range(vertex_count):\n    vertex_name = \"{}.vtx[{}]\".format(selected_mesh, i)\n    position = cmds.pointPosition(vertex_name, local=True)\n    \n    # X+側の頂点のみ処理\n    if position[0] > 0:\n        # 対応するX-側の頂点を見つける\n        mirror_position = (-position[0], position[1], position[2])\n        \n        # トレランスを考慮してX-側の頂点を検索\n        for j in range(vertex_count):\n            target_vertex_name = \"{}.vtx[{}]\".format(selected_mesh, j)\n            target_position = cmds.pointPosition(target_vertex_name, local=True)\n            \n            if (abs(target_position[0] - mirror_position[0]) < 0.001 and\n                abs(target_position[1] - mirror_position[1]) < 0.001 and\n                abs(target_position[2] - mirror_position[2]) < 0.001):\n                # ウェイトを取得してコピー\n                weights = cmds.skinPercent(skin_clusters, vertex_name, query=True, value=True)\n                cmds.skinPercent(skin_clusters, target_vertex_name, transformValue=[(weight, val) for weight, val in zip(cmds.skinPercent(skin_clusters, vertex_name, query=True, transform=None), weights)])\n                break" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 62
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Open the MASH Editor to organise and reorder MASH networks." 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "MASH Editor" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "ae_MASH_Editor.png" 
+        -image1 "ae_MASH_Editor.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "OpenMashEditor" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 95
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 1
+        -backgroundColor 0.306096 0.4439 0.578302 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "--- Check&Clean ---" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 92
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "Count Up Selection" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nimport maya.api.OpenMaya as om2\n\ndef get_uv_shell_count(mesh_name):\n    slist = om2.MGlobal.getSelectionListByName(mesh_name)\n    dag = slist.getDagPath(0)\n    fn_mesh = om2.MFnMesh(dag)\n\n    uv_shell_ids = om2.MIntArray()\n    uv_shell_ids = fn_mesh.getUvShellsIds()\n\n    return uv_shell_ids[0]\n\nprint(\"mesh:\", len(cmds.ls(selection=True, type=\"mesh\")))\nprint(\"joint: \", len(cmds.ls(selection=True, type=\"joint\")))\n\n\nsum = 0\nfor obj in cmds.ls(selection=True, type=\"mesh\"):\n    sum += get_uv_shell_count(obj)\n    \nprint(\"UV Shell: \", sum)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 87
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Delete GroupParts" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "import maya.cmds as cmds\n\ngroup_parts_nodes = cmds.ls(\"*\", type=\"groupParts\")\ngp_to_delete = []\n\nfor gp in group_parts_nodes:\n    neighbors = cmds.listConnections(destination=True, source=True)\n    \n    if neighbors and all([cmds.objectType(x, isType=\"groupParts\") or cmds.objectType(x, isType=\"nodeGraphEditorInfo\") for x in neighbors]):\n        gp_to_delete.append(gp)\n\ncmds.delete(gp_to_delete)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 99
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "left" 
+        -label "Delete Tex Isolate Set" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "delete textureEditorIsolateSelectSet" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 31
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "---  ---" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "print(\"User defined macro\");" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 76
+        -height 20
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "User Script" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "pip install (user)" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "commandButton.png" 
+        -image1 "commandButton.png" 
+        -style "textOnly" 
+        -marginWidth 0
+        -marginHeight 1
+        -command "from importlib import reload\nfrom _misc import pip_user_install as pip\npip.main()\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+
+} 
